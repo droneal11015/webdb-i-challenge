@@ -29,6 +29,21 @@ server.get('/:id', async(req, res) => {
     }
 })
 
+server.post('/', async(req, res) => {
+    try{
+        const newMessage = await db.add(req.body);
+        if (newMessage.name || newMessage.budget) {
+            res.json(newMessage)
+        } else {
+            res.status(400).json({message: "Name and budget required."}.message)
+        }
+    } catch (err){
+        res.status(500).json(err.message)
+    }
+})
+
+
+
 
 // your code here
 
