@@ -42,7 +42,23 @@ server.post('/', async(req, res) => {
     }
 })
 
+server.delete('/:id', async (req,res) => {
+    try{
+        const deletedMessage = await db.remove(req.params.id);
+        res.json(deletedMessage)
+    } catch(err){
+        res.status(500).json(err.message)
+    }
+})
 
+server.put('/:id', async (req, res) => {
+    try{
+        const editedMessage = await db.update(req.params.id, req.body)
+        res.json(editedMessage)
+    } catch(err){
+        res.status(500).json(err.message)
+    }
+})
 
 
 // your code here
